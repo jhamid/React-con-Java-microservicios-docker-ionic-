@@ -23,6 +23,13 @@ const CustumerList: React.FC = () => {
         lastname: 'rivas',
         phone: '3215869261',
         email: 'jhamidridiaz@gmail.com'
+      },
+      {
+        id: '1',
+        firstname: 'yamid',
+        lastname: 'rivas',
+        phone: '3215869261',
+        email: 'jhamidridiaz@gmail.com'
       }
     ];
     setClientes(datosEjemplo);

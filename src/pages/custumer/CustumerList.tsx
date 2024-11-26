@@ -1,10 +1,36 @@
-import { IonButton, IonButtons, IonCard, IonCol, IonContent, IonGrid, IonHeader, IonInput, IonItem, IonMenuButton, IonPage, IonRow, IonTitle, IonToolbar } from '@ionic/react';
+import { IonButton, IonButtons, IonCard, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonInput, IonItem, IonMenuButton, IonPage, IonRow, IonTitle, IonToolbar } from '@ionic/react';
 import { useParams } from 'react-router';
 import ExploreContainer from '../../components/ExploreContainer';
+import { logoIonic, pencil, trash } from 'ionicons/icons';
+import { useEffect, useState } from 'react';
 
 
 
 const CustumerList: React.FC = () => {
+  const [clientes, setClientes] = useState<any>([]);
+
+
+  useEffect(() => {
+    search();
+
+  }, [])
+
+  const search = () => {
+    const datosEjemplo = [
+      {
+        id: '1',
+        firstname: 'yamid',
+        lastname: 'rivas',
+        phone: '3215869261',
+        email: 'jhamidridiaz@gmail.com'
+      }
+    ];
+    setClientes(datosEjemplo);
+
+  }
+
+
+
 
   const { name } = useParams<{ name: string; }>();
 
@@ -22,10 +48,10 @@ const CustumerList: React.FC = () => {
 
       <IonContent fullscreen>
         <IonCard>
-        <IonTitle class="ion-text-center">Gestion de Clientes</IonTitle>
+          <IonTitle class="ion-text-center">Gestion de Clientes</IonTitle>
           <IonItem>
             <IonButton color={'primary'} fill='solid' slot='end' size='small'>
-            Agregar Cliente
+              Agregar Cliente
             </IonButton>
           </IonItem>
 
@@ -35,21 +61,32 @@ const CustumerList: React.FC = () => {
               <IonCol>Apellido</IonCol>
               <IonCol>Telefono</IonCol>
               <IonCol>Correo Electronico</IonCol>
+              <IonCol>Acciones</IonCol>
             </IonRow>
 
-            <IonRow>
-              <IonCol>1</IonCol>
-              <IonCol>2</IonCol>
-              <IonCol>3</IonCol>
-              <IonCol>4</IonCol>
-            </IonRow>
+            {clientes.map((cliente:any) =>
+              <IonRow>
+                <IonCol>{cliente.firstname}</IonCol>
+                <IonCol>{cliente.lastname}</IonCol>
+                <IonCol>{cliente.phone}</IonCol>
+                <IonCol>{cliente.email}</IonCol>
+                <IonCol>
+                  <IonButton>
+                    <IonIcon icon={pencil}>
 
-            <IonRow>
-              <IonCol>1</IonCol>
-              <IonCol>2</IonCol>
-              <IonCol>3</IonCol>
-              <IonCol>4</IonCol>
-            </IonRow>
+                    </IonIcon>
+                  </IonButton>
+                  <IonButton>
+                    <IonIcon icon={trash}>
+
+                    </IonIcon>
+                  </IonButton>
+                </IonCol>
+              </IonRow>
+
+            )}
+
+
           </IonGrid>
         </IonCard>
       </IonContent>

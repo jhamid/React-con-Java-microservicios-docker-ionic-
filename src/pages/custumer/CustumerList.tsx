@@ -3,6 +3,7 @@ import { useParams } from 'react-router';
 import ExploreContainer from '../../components/ExploreContainer';
 import { logoIonic, pencil, trash } from 'ionicons/icons';
 import { useEffect, useState } from 'react';
+import { searchCustumer } from './custumerApi';
 
 
 
@@ -11,28 +12,14 @@ const CustumerList: React.FC = () => {
 
 
   useEffect(() => {
+    
     search();
 
   }, [])
 
   const search = () => {
-    const datosEjemplo = [
-      {
-        id: '1',
-        firstname: 'yamid',
-        lastname: 'rivas',
-        phone: '3215869261',
-        email: 'jhamidridiaz@gmail.com'
-      },
-      {
-        id: '1',
-        firstname: 'yamid',
-        lastname: 'rivas',
-        phone: '3215869261',
-        email: 'jhamidridiaz@gmail.com'
-      }
-    ];
-    setClientes(datosEjemplo);
+    let result = searchCustumer();
+    setClientes(result);
 
   }
 

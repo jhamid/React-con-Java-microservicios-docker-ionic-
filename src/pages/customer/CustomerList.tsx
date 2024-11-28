@@ -15,12 +15,12 @@ const CustomerList: React.FC = () => {
   }, [history.location.pathname])
 
   const remove = (id: string) => {
-    removeCustomer(id);
-    search()
-  }
+    const updatedCustomers = removeCustomer(id);
+    setClientes(updatedCustomers); // Asegúrate de reflejar los cambios
+  };
 
   const search = () => {
-    let result = searchCustomer();
+    let result = searchCustomer() || [];
     setClientes(result);
   }
 
@@ -30,6 +30,9 @@ const CustomerList: React.FC = () => {
   const editCustomer = (id: string) => {
     history.push('customers/' + id)
   }
+
+
+
 
 
   const localstorage = () => {
@@ -66,26 +69,25 @@ const CustomerList: React.FC = () => {
               Agregar Cliente
             </IonButton>
           </IonItem>
-          
+
 
           <IonList>
-          {clientes.map((cliente: any) => (
-            <IonItem key={cliente.id} onClick={() => editCustomer(cliente.id)}>
-              <IonLabel>
-                <h2>{cliente.firstname} {cliente.lastname}</h2>
-                <p>{cliente.email}</p>
-              </IonLabel>
-              <IonButton onClick={() => editCustomer(cliente.id)} fill="clear" size="small">
-                <IonIcon icon={pencil} slot="icon-only" />
-              </IonButton>
-              <IonButton color="danger" onClick={() => removeCustomer(cliente.id)} fill="clear" size="small">
-                <IonIcon icon={trash} slot="icon-only" />
-              </IonButton>
-            </IonItem>
-          ))}
-        </IonList>
+            {clientes.map((cliente: any) => (
+              <IonItem key={cliente.id} onClick={() => editCustomer(cliente.id)}>
+                <IonLabel>
+                  <h2>{cliente.firstname} {cliente.lastname}</h2>
+                  <p>{cliente.email}</p>
+                </IonLabel>
 
-
+                <IonButton color="danger" onClick={(e) => {
+                  e.stopPropagation(); // Evita la propagación al contenedor padre
+                  remove(cliente.id);
+                }}>
+                  <IonIcon icon={trash} slot="icon-only" />
+                </IonButton>
+              </IonItem>
+            ))}
+          </IonList>
         </IonCard>
       </IonContent>
     </IonPage>

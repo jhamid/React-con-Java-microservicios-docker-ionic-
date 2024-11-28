@@ -11,19 +11,19 @@ export function searchCustomer() {
 
 }
 export function removeCustomer(id: string) {
-    let customers = searchCustomer();
-    let indice = customers.findIndex((customers: any) => customers.id == id);
-    customers.splice(indice, 1)
-    localStorage['customers'] = JSON.stringify(customers);
-
+    let customers = searchCustomer() || []; // Asegúrate de que nunca sea null
+    let indice = customers.findIndex((customer: any) => customer.id === id);
+    if (indice !== -1) {
+        customers.splice(indice, 1); // Elimina el cliente si existe
+        localStorage['customers'] = JSON.stringify(customers); // Guarda en localStorage
+    }
+    return customers; // Retorna la lista actualizada
 }
 export function saveCustomer(customer: any) {
     let customers = searchCustomer(); // Obtén el arreglo actualizado
     if (customer.id) {
         let indice = customers.findIndex((c: any) => c.id ==customer.id);
         customers[indice]=customer;
-
-
     }else{
         customer.id = Math.floor(Math.random() * 10000);
         customers.push(customer); // Agrega el nuevo cliente
